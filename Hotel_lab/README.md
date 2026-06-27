@@ -2,7 +2,7 @@
 
 ## Giới Thiệu
 
-Bài lab mô phỏng hệ thống mạng của một công ty có **ba chi nhánh văn phòng đặt tại ba địa điểm khác nhau**, kết nối với nhau qua đường truyền WAN (Serial link). Mỗi chi nhánh được tổ chức thành nhiều tầng và phòng ban riêng biệt thông qua VLAN, trong khi các router đảm nhiệm việc định tuyến để toàn bộ nhân viên — dù ở chi nhánh nào — đều có thể giao tiếp với nhau.
+Bài lab mô phỏng hệ thống mạng của một công ty có **ba chi nhánh văn phòng đặt tại ba địa điểm khác nhau**, kết nối với nhau qua đường truyền WAN (Serial link). Mỗi chi nhánh được tổ chức thành nhiều tầng và phòng ban riêng biệt thông qua VLAN, trong khi các router đảm nhiệm việc định tuyến để toàn bộ nhân viên dù ở chi nhánh nào đều có thể giao tiếp với nhau.
 
 ---
 
@@ -68,12 +68,12 @@ Ba chi nhánh được kết nối với nhau qua **Serial WAN** theo mô hình 
 
 ## ✅ Những Gì Đã Thực Hiện Được
 
-- ✅ **Phân vùng VLAN** cho từng phòng ban tại mỗi chi nhánh, đảm bảo tách biệt lưu lượng nội bộ
-- ✅ **Inter-VLAN Routing** (Router-on-a-Stick) cho phép các phòng ban trong cùng chi nhánh giao tiếp với nhau
-- ✅ **Kết nối WAN Serial** giữa ba chi nhánh qua các subnet `/30` point-to-point
-- ✅ **Static Routing** định tuyến lưu lượng qua lại giữa các chi nhánh, đảm bảo nhân viên ở bất kỳ văn phòng nào cũng kết nối được với nhau
-- ✅ **Wireless Access Point** triển khai tại các chi nhánh, hỗ trợ Smartphone và Laptop kết nối WiFi
-- ✅ **Kiểm tra kết nối** thành công từ TEST-PC tại chi nhánh 3 tới các thiết bị ở chi nhánh 1 và 2
+-  **Phân vùng VLAN** cho từng phòng ban tại mỗi chi nhánh, đảm bảo tách biệt lưu lượng nội bộ
+-  **Inter-VLAN Routing** (Router-on-a-Stick) cho phép các phòng ban trong cùng chi nhánh giao tiếp với nhau
+-  **Kết nối WAN Serial** giữa ba chi nhánh qua các subnet `/30` point-to-point
+-  **Static Routing** định tuyến lưu lượng qua lại giữa các chi nhánh, đảm bảo nhân viên ở bất kỳ văn phòng nào cũng kết nối được với nhau
+-  **Wireless Access Point** triển khai tại các chi nhánh, hỗ trợ Smartphone và Laptop kết nối WiFi
+-  **Kiểm tra kết nối** thành công từ TEST-PC tại chi nhánh 3 tới các thiết bị ở chi nhánh 1 và 2
 
 ---
 
