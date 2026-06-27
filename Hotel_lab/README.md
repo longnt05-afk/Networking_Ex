@@ -1,8 +1,10 @@
-# 🏢 Cisco Lab — Mạng Doanh Nghiệp Đa Chi Nhánh
+# 🏨 Cisco Lab - Vic Modern Hotel Network
 
 ## Giới Thiệu
 
-Bài lab mô phỏng hệ thống mạng của một công ty có **ba chi nhánh văn phòng đặt tại ba địa điểm khác nhau**, kết nối với nhau qua đường truyền WAN (Serial link). Mỗi chi nhánh được tổ chức thành nhiều tầng và phòng ban riêng biệt thông qua VLAN, trong khi các router đảm nhiệm việc định tuyến để toàn bộ nhân viên dù ở chi nhánh nào đều có thể giao tiếp với nhau.
+Bài lab mô phỏng hệ thống mạng nội bộ của khách sạn **Vic Modern Hotel** - một tòa nhà 3 tầng với các phòng ban hoạt động độc lập nhưng vẫn có thể giao tiếp với nhau trong toàn bộ hệ thống.
+
+Mỗi tầng được trang bị một switch riêng và chia thành các VLAN theo từng phòng ban. Ba router đặt tại phòng máy chủ (IT Department, tầng 3) kết nối với nhau qua Serial DCE, sử dụng OSPF để định tuyến, đảm bảo mọi thiết bị trong khách sạn đều liên lạc được với nhau.
 
 ---
 
@@ -14,66 +16,61 @@ Bài lab mô phỏng hệ thống mạng của một công ty có **ba chi nhán
 ### Chi Tiết
 ![Topology Detail](topology-detail.png)
 
-### Chi Nhánh 3 (3rd Floor)
-![Branch 3](topology-branch3.png)
+### Tầng 3 - IT & Admin
+![Floor 3](topology-branch3.png)
 
 ---
 
-## 🌐 Kết Nối Giữa Các Chi Nhánh (WAN)
+## 🏗️ Phân Tầng & Phòng Ban
 
-Ba chi nhánh được kết nối với nhau qua **Serial WAN** theo mô hình hub-and-spoke / mesh:
-
-| Đường Truyền | Subnet | Hai Đầu |
-|---|---|---|
-| Branch 1 ↔ Branch 2 | 10.10.10.0/30 | Se0/2/0 — Se0/2/1 |
-| Branch 1 ↔ Branch 3 | 10.10.10.8/30 | Se0/2/1 — Se0/2/1 |
-| Branch 2 ↔ Branch 3 | 10.10.10.4/30 | Se0/2/0 — Se0/2/0 |
-
----
-
-## 🏬 Chi Nhánh 1 — 2nd Floor
+### 🔴 Tầng 1 (1st Floor)
 
 | VLAN | Phòng Ban | Subnet |
 |---|---|---|
-| VLAN 30 | Sales | 192.168.3.0/24 |
-| VLAN 40 | HR | 192.168.4.0/24 |
-| VLAN 50 | Finance | 192.168.5.0/24 |
-
-> Có Access Point phục vụ kết nối WiFi cho thiết bị di động (Smartphone, Laptop không dây).
-
----
-
-## 🏬 Chi Nhánh 2 — 1st Floor
-
-| VLAN | Phòng Ban | Subnet |
-|---|---|---|
-| VLAN 60 | Logistics | 192.168.6.0/24 |
-| VLAN 70 | Store | 192.168.7.0/24 |
 | VLAN 80 | Reception | 192.168.8.0/24 |
+| VLAN 70 | Store | 192.168.7.0/24 |
+| VLAN 60 | Logistics | 192.168.6.0/24 |
 
-> Có Access Point phục vụ kết nối WiFi. Smartphone1 kết nối không dây vào khu vực Reception.
-
----
-
-## 🏬 Chi Nhánh 3 — 3rd Floor
+### 🟢 Tầng 2 (2nd Floor)
 
 | VLAN | Phòng Ban | Subnet |
 |---|---|---|
-| VLAN 10 | IT | 192.168.1.0/24 |
-| VLAN 20 | Admin | 192.168.2.0/24 |
+| VLAN 50 | Finance | 192.168.5.0/24 |
+| VLAN 40 | HR | 192.168.4.0/24 |
+| VLAN 30 | Sales / Marketing | 192.168.3.0/24 |
 
-> Có Access Point (Access Point5) và TEST-PC phục vụ kiểm tra kết nối mạng nội bộ và liên chi nhánh.
+### 🟠 Tầng 3 (3rd Floor) - Phòng Máy Chủ
+
+| VLAN | Phòng Ban | Subnet |
+|---|---|---|
+| VLAN 20 | Admin | 192.168.2.0/24 |
+| VLAN 10 | IT | 192.168.1.0/24 |
+
+---
+
+## 🌐 Kết Nối Giữa Các Router (WAN Serial)
+
+Ba router đặt tại tầng 3 kết nối với nhau qua **Serial DCE cable**:
+
+| Đường Truyền | Subnet |
+|---|---|
+| Router1 ↔ Router2 | 10.10.10.0/30 |
+| Router2 ↔ Router3 | 10.10.10.4/30 |
+| Router1 ↔ Router3 | 10.10.10.8/30 |
 
 ---
 
 ## ✅ Những Gì Đã Thực Hiện Được
 
--  **Phân vùng VLAN** cho từng phòng ban tại mỗi chi nhánh, đảm bảo tách biệt lưu lượng nội bộ
--  **Inter-VLAN Routing** (Router-on-a-Stick) cho phép các phòng ban trong cùng chi nhánh giao tiếp với nhau
--  **Kết nối WAN Serial** giữa ba chi nhánh qua các subnet `/30` point-to-point
--  **Static Routing** định tuyến lưu lượng qua lại giữa các chi nhánh, đảm bảo nhân viên ở bất kỳ văn phòng nào cũng kết nối được với nhau
--  **Wireless Access Point** triển khai tại các chi nhánh, hỗ trợ Smartphone và Laptop kết nối WiFi
--  **Kiểm tra kết nối** thành công từ TEST-PC tại chi nhánh 3 tới các thiết bị ở chi nhánh 1 và 2
+- ✅ **Phân vùng VLAN** cho 8 phòng ban trên 3 tầng, tách biệt hoàn toàn lưu lượng nội bộ từng phòng
+- ✅ **Inter-VLAN Routing** (Router-on-a-Stick) cho phép các phòng ban trong cùng tầng giao tiếp với nhau
+- ✅ **Kết nối Serial DCE** giữa 3 router với 3 subnet `/30` point-to-point
+- ✅ **OSPF** cấu hình định tuyến động giữa các router, đảm bảo toàn bộ thiết bị trong khách sạn liên lạc được với nhau
+- ✅ **DHCP Server** cấu hình trên từng router, tự động cấp IP cho tất cả thiết bị theo đúng VLAN
+- ✅ **Wireless Access Point** triển khai tại mỗi tầng, hỗ trợ Laptop và Smartphone kết nối WiFi
+- ✅ **SSH** cấu hình trên tất cả router, cho phép đăng nhập quản trị từ xa
+- ✅ **Port Security (Sticky)** cấu hình tại switch tầng 3, chỉ cho phép Test-PC truy cập cổng Fa0/1, vi phạm sẽ tự động shutdown
+- ✅ **Test-PC** dùng để kiểm tra kết nối toàn mạng và thử nghiệm SSH remote login tới các router
 
 ---
 
