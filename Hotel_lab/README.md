@@ -66,9 +66,9 @@ Ba router đặt tại tầng 3 kết nối với nhau qua **Serial DCE cable**:
 - ✅ **Inter-VLAN Routing** (Router-on-a-Stick) cho phép các phòng ban trong cùng tầng giao tiếp với nhau
 - ✅ **Kết nối Serial DCE** giữa 3 router với 3 subnet `/30` point-to-point
 - ✅ **OSPF** cấu hình định tuyến động giữa các router, đảm bảo toàn bộ thiết bị trong khách sạn liên lạc được với nhau
-- ✅ **DHCP Server** cấu hình trên từng router, tự động cấp IP cho tất cả thiết bị theo đúng VLAN
+- ✅ **DHCP Server** cấu hình trên từng switch, tự động cấp IP cho tất cả thiết bị theo đúng VLAN
 - ✅ **Wireless Access Point** triển khai tại mỗi tầng, hỗ trợ Laptop và Smartphone kết nối WiFi
-- ✅ **SSH** cấu hình trên tất cả router, cho phép đăng nhập quản trị từ xa
+- ✅ **SSH** cấu hình trên tất cả router, cho phép đăng nhập quản trị từ xa 
 - ✅ **Port Security (Sticky)** cấu hình tại switch tầng 3, chỉ cho phép Test-PC truy cập cổng Fa0/1, vi phạm sẽ tự động shutdown
 - ✅ **Test-PC** dùng để kiểm tra kết nối toàn mạng và thử nghiệm SSH remote login tới các router
 
